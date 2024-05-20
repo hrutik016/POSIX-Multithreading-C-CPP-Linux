@@ -41,6 +41,9 @@ int main (int argc, char **argv){
 
     // indicating that, the main function is paused
     printf("main functin paused \n ");
+
+    // pause the main thread indefinitely
     pause();
+
     return 0;
 }
