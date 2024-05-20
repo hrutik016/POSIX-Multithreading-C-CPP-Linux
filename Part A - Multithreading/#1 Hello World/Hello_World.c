@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
+#include <stdio.h>      // standard input / output library
+#include <stdlib.h>     // standard library header for exit
+#include <pthread.h>    // POSIX threads header file for threading functions
+#include <unistd.h>     // for POSIX operating system API functions like sleep(), pause()
 
 // thread callback function
 static void * thread_fn_callback(void *arg){
