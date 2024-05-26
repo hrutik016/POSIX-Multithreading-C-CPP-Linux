@@ -1,10 +1,10 @@
 #include "glthread.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stddef.h>
 #include <memory.h>
 
 typedef struct emp_ {
-
     char name[30];
     unsigned int salary;
     char designation[30];
@@ -12,9 +12,7 @@ typedef struct emp_ {
     glthread_node_t glnode;
 } emp_t; 
 
-void
-print_emp_details(emp_t *emp){
-
+void print_emp_details(emp_t *emp){
     printf("Employee name = %s\n", emp->name);
     printf("salary = %u\n", emp->salary);
     printf("designation = %s\n", emp->designation);
@@ -22,9 +20,7 @@ print_emp_details(emp_t *emp){
 }
 
 
-int 
-main(int argc, char **argv){
-
+int main(int argc, char **argv){
     emp_t *emp1  = calloc(1, sizeof(emp_t));
     strncpy(emp1->name, "Neha", strlen("Neha"));
     emp1->salary = 50000;
@@ -60,7 +56,6 @@ main(int argc, char **argv){
     /*Walk over glthread*/
     emp_t *ptr = NULL;
     ITERATE_GL_THREADS_BEGIN(emp_list, emp_t, ptr){
-
         print_emp_details(ptr);
     } ITERATE_GL_THREADS_ENDS;
 
@@ -70,14 +65,12 @@ main(int argc, char **argv){
     printf("\nprinting again . . . \n");
 
     ITERATE_GL_THREADS_BEGIN(emp_list, emp_t, ptr){
-
         print_emp_details(ptr);
     } ITERATE_GL_THREADS_ENDS;
 
 
     /*Free all Dynamicall allocations*/
     ITERATE_GL_THREADS_BEGIN(emp_list, emp_t, ptr){
-        
          glthread_remove(emp_list, &ptr->glnode);
          free(ptr);
     } ITERATE_GL_THREADS_ENDS;
