@@ -20,6 +20,9 @@ void * write_into_file(void *arg){
     int len;
     int count;
 
+    // Making the Thread eligigble for cancellation 
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, 0);
+
     int *thread_id = (int *)arg;
 
     sprintf(file_name, "thread_%d.txt", *thread_id);
@@ -76,6 +79,8 @@ int main(int argc, char **argv){
 
         switch(choice){
             case 1:
+                // Thread Cancel API, in order to cancel the Thread, on order to cancel the thread, thread should first be cancellable. And in order to do that
+                pthread_cancel(slave[thread_num]);
                 break;
             default:
                 continue;
