@@ -21,7 +21,10 @@ void * write_into_file(void *arg){
     int count;
 
     // Making the Thread eligigble for cancellation 
-    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, 0);
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE /* PTHREAD_CANCEL_DISABLE */, 0);
+
+    // Mode of Cancellation (Asynchronous or Deferred)
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, 0);
 
     int *thread_id = (int *)arg;
 
