@@ -26,6 +26,7 @@ void * write_into_file(void *arg){
     // Mode of Cancellation (Asynchronous or Deferred)
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, 0);
 
+    // causing memory leak 
     int *thread_id = (int *)arg;
 
     sprintf(file_name, "thread_%d.txt", *thread_id);
