@@ -74,7 +74,7 @@ static void *cons_fn(void *arg) {
 
     int i;
     while(!is_queue_empty(Q)){
-        i = (int)deque(Q);
+        i = (int)(intptr_t)deque(Q);
         printf("Thread %s consumes as integer %d, Queue size = %d\n", th_name, i, Q->count);
     }
 
