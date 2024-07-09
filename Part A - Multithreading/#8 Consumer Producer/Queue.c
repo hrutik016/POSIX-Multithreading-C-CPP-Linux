@@ -13,23 +13,20 @@ struct Queue_t* initQ(){
 }
 
 
-bool
-is_queue_empty(struct Queue_t *q){
+bool is_queue_empty(struct Queue_t *q){
 	if(q->count == 0)
 		return true;
 	return false;
 }
 
 
-bool
-is_queue_full(struct Queue_t *q){
+bool is_queue_full(struct Queue_t *q){
 	if(q->count == Q_DEFAULT_SIZE)
 		return true;
 	return false;
 }
 
-bool
-enqueue(struct Queue_t *q, void *ptr){
+bool enqueue(struct Queue_t *q, void *ptr){
 
 	if(!q || !ptr) return false;
 	
@@ -55,8 +52,7 @@ enqueue(struct Queue_t *q, void *ptr){
 	return true;
 }
 
-void*
-deque(struct Queue_t *q){
+void* deque(struct Queue_t *q){
 	
 	void *elem = NULL;
 	if(!q) return NULL;
@@ -80,8 +76,7 @@ deque(struct Queue_t *q){
 	return elem;
 }
 
-void
-print_Queue(struct Queue_t *q){
+void print_Queue(struct Queue_t *q){
 	unsigned int i = 0;
 	printf("q->front = %d, q->rear = %d, q->count = %d\n",
 		q->front, q->rear, q->count);

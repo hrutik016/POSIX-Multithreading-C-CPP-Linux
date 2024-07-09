@@ -16,20 +16,15 @@ struct Queue_t{
 
 struct Queue_t* initQ(void);
 
-bool 
-is_queue_empty(struct Queue_t *q);
+bool  is_queue_empty(struct Queue_t *q);
 
-bool
-is_queue_full(struct Queue_t *q);
+bool is_queue_full(struct Queue_t *q);
 
-bool 
-enqueue(struct Queue_t *q, void *ptr);
+bool  enqueue(struct Queue_t *q, void *ptr);
 
-void*
-deque(struct Queue_t *q);
+void* deque(struct Queue_t *q);
 
-void
-print_Queue(struct Queue_t *q);
+void print_Queue(struct Queue_t *q);
 
 #define Q_COUNT(q)	(q->count)
 #endif

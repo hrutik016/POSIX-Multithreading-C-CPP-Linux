@@ -41,8 +41,8 @@ static void *prod_fn(void *arg) {
     while(!is_queue_full(Q)){
         i = new_int();
         printf("Thread %s produces new integer %d\n", th_name, i);
-        enqueue(Q, (void *)i);
-        printf("Thread %s pushed integer in Queue, Queue size=%d\n", th_name, i, Q->count);
+        enqueue(Q, (void *)(intptr_t)i);
+        printf("Thread %s pushed integer in Queue %d, Queue size=%d\n", th_name, i, Q->count);
     }
 
     printf("Thread %s has filled up the Queue, signalling and releasing lock\n", th_name);
@@ -60,8 +60,8 @@ static void *cons_fn(void *arg) {
 
 	/* Code Consumer Logic here */
     printf("Thread %s waiting to lock the Queue\n", th_name);
-    pthread_mutex_lock(&Q->q_cv, &Q->q_mutex);
-    pthread("Thread %s locks the Queue\n", th_name);
+    pthread_mutex_lock(&Q->q_mutex);
+    printf("Thread %s locks the Queue\n", th_name);
 
     while(is_queue_empty(Q)){
         printf("Thread %s blocks itself, Q is already empty \n", th_name);
@@ -70,10 +70,10 @@ static void *cons_fn(void *arg) {
     }
 
     // Start of the Critical Section of the Consumer
-    sssert(is_queue_full(Q));
+    assert(is_queue_full(Q));
 
     int i;
-    while(!its_queue_empty(Q)){
+    while(!is_queue_empty(Q)){
         i = (int)deque(Q);
         printf("Thread %s consumes as integer %d, Queue size = %d\n", th_name, i, Q->count);
     }
