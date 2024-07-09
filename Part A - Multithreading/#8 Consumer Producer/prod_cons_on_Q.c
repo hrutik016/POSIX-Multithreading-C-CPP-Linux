@@ -23,21 +23,69 @@ static void *prod_fn(void *arg) {
 
 	char *th_name = (char *)arg;    // this line casts the void* argument 'arg' to ' char*', allowing to treat it as string. Now 'th_name' contains the thread name (' "TP1", "TP2", "TC1", "TC2" ')
 
+    /* Code Producer Logic here */
     printf("Thread %s waiting tolock the Queue \n", th_name);
     pthread_mutex_lock(&Q -> q_mutex);
     printf("Thread %s wakes up, checking the Queue status again \n", th_name);
 
-    
-	/* Code Producer Logic here */
+    while(is_queue_full(Q)){
+        printf("Thread %s blocks itself, Q is already full \n", th_name);
+        pthread_cond_wait(&Q->q_cv, &Q->q_mutex);       // since Q is full, we wait for CV->signal and the mutex is freed here
+        printf("Thread %s wakes up, checking the Q status again \n", th_name);
+    }
+
+    // Start of Critial Section of the Producer. Producermust start pushing elements in the empty Queue only
+    assert(is_queue_empty(Q));
+
+	int i;
+    while(!is_queue_full(Q)){
+        i = new_int();
+        printf("Thread %s produces new integer %d\n", th_name, i);
+        enqueue(Q, (void *)i);
+        printf("Thread %s pushed integer in Queue, Queue size=%d\n", th_name, i, Q->count);
+    }
+
+    printf("Thread %s has filled up the Queue, signalling and releasing lock\n", th_name);
+    pthread_cond_broadcast(&Q->q_cv);
+
+    // End of Critical Section of the producer
+    pthread_mutex_unlock(&Q->q_mutex);
+    printf("Thread %s finished, and exit \n", th_name);
 	return NULL;
 }
 
 static void *cons_fn(void *arg) {
 
 	char *th_name = (char *)arg;
-	
 
 	/* Code Consumer Logic here */
+    printf("Thread %s waiting to lock the Queue\n", th_name);
+    pthread_mutex_lock(&Q->q_cv, &Q->q_mutex);
+    pthread("Thread %s locks the Queue\n", th_name);
+
+    while(is_queue_empty(Q)){
+        printf("Thread %s blocks itself, Q is already empty \n", th_name);
+        thread_cond_wait(&Q->q_cv, &Q->q_mutex);
+        printf("Thread %s wakes up, checking the Queue status again\n", th_name);
+    }
+
+    // Start of the Critical Section of the Consumer
+    sssert(is_queue_full(Q));
+
+    int i;
+    while(!its_queue_empty(Q)){
+        i = (int)deque(Q);
+        printf("Thread %s consumes as integer %d, Queue size = %d\n", th_name, i, Q->count);
+    }
+
+    printf("Thread %s drains the entire Queue, sending signal to blocking threads \n", th_name);
+    pthread_cond_broadcast(&Q->q_cv);
+
+    printf("thread %s releasing the lock \n", th_name);
+
+    //end of the critical section of consumer
+    pthread_mutex_unlock(&Q->q_mutex);
+    printf("thread %s finished, and exit\n", th_name);
 	return NULL;
 }
 
