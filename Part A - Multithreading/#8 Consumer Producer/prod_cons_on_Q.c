@@ -65,7 +65,7 @@ static void *cons_fn(void *arg) {
 
     while(is_queue_empty(Q)){
         printf("Thread %s blocks itself, Q is already empty \n", th_name);
-        thread_cond_wait(&Q->q_cv, &Q->q_mutex);
+        pthread_cond_wait(&Q->q_cv, &Q->q_mutex);
         printf("Thread %s wakes up, checking the Queue status again\n", th_name);
     }
 
