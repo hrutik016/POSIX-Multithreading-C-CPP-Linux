@@ -10,7 +10,7 @@ pthread_t threads[5];
 
 #define PERMIT_COUNT 2
 
-static void * thread_fn_Callback(void * arg){
+static void * thread_fn_callback(void * arg){
     char * thread_name = (char *)arg;
 
     int i;
@@ -34,7 +34,7 @@ static void * thread_fn_Callback(void * arg){
 }
 
 void thread_create(pthread_t *thread_handle, void *arg){
-    int rc = pthread_create(thrad_handle, NULL, thread_fn_callback, arg);
+    int rc = pthread_create(thread_handle, NULL, thread_fn_callback, arg);
 
     if(rc != 0){
         printf("Error occured, thread could not becreated, errrno = %d\n", rc);
@@ -44,11 +44,11 @@ void thread_create(pthread_t *thread_handle, void *arg){
 
 int main(int argc, char **argv){
     sem_init(&sem, 0, PERMIT_COUNT);
-    thrad_create(&threads[0], "thread0");
-    thrad_create(&threads[1], "thread1");
-    thrad_create(&threads[2], "thread2");
-    thrad_create(&threads[3], "thread3");
-    thrad_create(&threads[4], "thread4");
+    thread_create(&threads[0], "thread0");
+    thread_create(&threads[1], "thread1");
+    thread_create(&threads[2], "thread2");
+    thread_create(&threads[3], "thread3");
+    thread_create(&threads[4], "thread4");
 
     int i;
     for(i=0; i < 5; i++){
