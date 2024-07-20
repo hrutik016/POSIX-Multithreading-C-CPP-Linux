@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "refcount.h"
+#include "ref_count.h"
 
 void ref_count_init (ref_count_t *ref_count) {
 
