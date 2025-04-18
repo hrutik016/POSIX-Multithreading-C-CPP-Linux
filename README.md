@@ -2,7 +2,7 @@
 
 This repository demonstrates a wide range of **POSIX multithreading** concepts through hands-on examples in **C and C++ on Linux systems**. It's structured into two parts—**Foundations (Part A)** and **Advanced Concepts (Part B)**—to help you gain a solid and practical understanding of multithreading.
 
-> 💡 This repository was built while following a comprehensive **Udemy course on Multithreading**. If you're interested, you can check out the course [here](#https://www.udemy.com/course/multithreading_parta/).
+> 💡 This repository was built while following a comprehensive **Udemy course on Multithreading**. If you're interested, you can check out the course [here](https://www.udemy.com/course/multithreading_parta/).
 
 ---
 
@@ -77,4 +77,4 @@ Take your skills further with in-depth explorations and custom implementations.
 
 If this project helped you understand POSIX multithreading better, consider ⭐ starring the repo to support the work!
 
-> 🎓 Ready to go deeper? Explore the accompanying **Udemy course** [here](#https://www.udemy.com/course/multithreading_parta/).
+> 🎓 Ready to go deeper? Explore the accompanying **Udemy course** [here](https://www.udemy.com/course/multithreading_parta/).
